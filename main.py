@@ -12,6 +12,9 @@ def main(photo_directory, mask_directory, output_directory):
     photo_directory = Path(photo_directory)
     mask_directory = Path(mask_directory)
     output_directory = output_directory
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+
 
     print('running main()')
     for i in range(0, 30000):
@@ -42,15 +45,19 @@ def main(photo_directory, mask_directory, output_directory):
 
         #image adjustments
         im = preprocessing(im)
-
+#
         outfile = output_directory + os.path.basename(str(i)) + '.jpg'
         print(outfile)
         status = cv.imwrite(outfile, im)
+
+#TODO: make 5 iterations per image
+# randomize hair brightening as effect not idea
+# Randomize linen texture overlay i.e. which sections on the texture and different textures
 
 
 if __name__ == '__main__':
     PHOTO_DIRECTORY = '/home/student/Desktop/shroud_models/Datasets/CelebAMask-HQ/CelebA-HQ-img/'
     MASK_DIRECTORY = '/home/student/Desktop/shroud_models/Datasets/CelebAMask-HQ/CelebAMask-HQ-mask-anno/'
-    OUTPUT_SHROUD_DIRECTORY = '/home/student/Desktop/shroud_models/Datasets/CelebAMask-HQ/test/'
+    OUTPUT_SHROUD_DIRECTORY = '/home/student/Desktop/shroud_models/Datasets/CelebAMask-HQ/testing/'
 
     main(PHOTO_DIRECTORY, MASK_DIRECTORY, OUTPUT_SHROUD_DIRECTORY)
