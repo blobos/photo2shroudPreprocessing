@@ -6,6 +6,7 @@ from Scripts.BG_removal import bg_remove
 from Scripts.eyelid_replacement import skin_tone_eye
 from Scripts.image_adustments import preprocessing
 from Scripts.hairmask import hair_brighten
+from Scripts.blendMode_screen import combine_overlay
 
 
 def main(photo_directory, mask_directory, output_directory):
@@ -45,6 +46,10 @@ def main(photo_directory, mask_directory, output_directory):
 
         #image adjustments
         im = preprocessing(im)
+
+        #overlay
+        im=combine_overlay(texture_folder_path="../linen_textures/", base_image=im)
+
 #
         outfile = output_directory + os.path.basename(str(i)) + '.jpg'
         print(outfile)
