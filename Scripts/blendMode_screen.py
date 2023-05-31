@@ -58,12 +58,12 @@ def linear_light_blend_mode(base_image, texture_overlay_image):
   output *= 255.0
   output = np.clip(output, 0, 255).astype(np.uint8)
   return output
-def combine_overlay(texture_folder_path, face):
-    layer1_texture = randomized_crop(texture_resize(texture_folder_path, face),512)
-    face_RGBA = cv2.cvtColor(face, cv2.COLOR_GRAY2RGBA)
+def combine_overlay(texture_folder_path, base_image):
+    layer1_texture = randomized_crop(texture_resize(texture_folder_path, base_image), 512)
+    face_RGBA = cv2.cvtColor(base_image, cv2.COLOR_GRAY2RGBA)
     texture1_RGBA = cv2.cvtColor(layer1_texture, cv2.COLOR_BGR2RGBA)
     textured_image = screen(face_RGBA.astype(float), texture1_RGBA.astype(float), .11)
-    layer2_texture = randomized_crop(texture_resize(texture_folder_path, face), 512)
+    layer2_texture = randomized_crop(texture_resize(texture_folder_path, base_image), 512)
     texture2_RGBA = cv2.cvtColor(layer2_texture, cv2.COLOR_BGR2RGBA)
     textured_image = linear_light_blend_mode(textured_image, texture2_RGBA)
 
